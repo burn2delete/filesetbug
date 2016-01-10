@@ -1,0 +1,20 @@
+(ns lounge.state
+  (:require [lounge.state.route :as route]
+            [lounge.vault :as vault])
+  (:require-macros [javelin.core :refer [defc defc= cell=]]))
+
+(defc error nil)
+
+(defc= error-message (when error (.-message error)))
+(defc= error-stack   (when error (.-serverStack error)))
+
+(defc loading nil)
+
+(defc= loading?     (not (empty? (seq loading))))
+
+(defc= routing {:hash   (route-cell "#!/home")})
+
+(cell= (println "[error]" error-message error error-stack))
+(cell= (println "[loading]" loading loading?))
+(cell= (println "[routing]" routing ))
+
